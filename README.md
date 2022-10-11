@@ -1,5 +1,5 @@
 # speech-hints-grammars
-
+Structure of projects - `<lang>/<grammar>.py`
 
 
 ## Getting started
