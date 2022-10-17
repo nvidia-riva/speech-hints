@@ -13,15 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
 import string
 import pynini
-from pynini import Far
 from pynini.examples import plurals
-from pynini.export import export
 from pynini.lib import byte, pynutil, utf8
 
-from utils import get_abs_path
+from en.utils import get_abs_path
 
 NEMO_CHAR = utf8.VALID_UTF8_CHAR
 
