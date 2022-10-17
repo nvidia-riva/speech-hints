@@ -4,20 +4,16 @@ from en.primitives import (
     NEMO_DIGIT,
     delete_space,
     insert_space,
+    str_to_digit,
+    digit_to_str
 )
-from en.utils import get_abs_path
 import pynini
 from pynini.lib import pynutil
 
 
 class NumericSequence:
     def __init__(self):
-        digit_to_str = (
-            pynini.invert(pynini.string_file(get_abs_path("data/numbers/digit.tsv")).optimize())
-            | pynini.cross("0", pynini.union("o", "oh", "zero")).optimize()
-        )
 
-        str_to_digit = pynini.invert(digit_to_str)
 
         double_digit = pynini.union(
             *[

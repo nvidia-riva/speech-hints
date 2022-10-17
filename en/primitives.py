@@ -13,11 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
 import string
 import pynini
+
+from pathlib import Path
 from pynini.examples import plurals
 from pynini.lib import byte, pynutil, utf8
-
+from pynini import Far
 from en.utils import get_abs_path
 
 NEMO_CHAR = utf8.VALID_UTF8_CHAR
@@ -67,3 +70,24 @@ TO_LOWER = pynini.union(*[pynini.cross(x, y) for x, y in zip(string.ascii_upperc
 TO_UPPER = pynini.invert(TO_LOWER)
 MIN_NEG_WEIGHT = -0.0001
 MIN_POS_WEIGHT = 0.0001
+
+
+digit_to_str = (
+        pynini.invert(pynini.string_file(get_abs_path("data/numbers/digit.tsv")).optimize())
+        | pynini.cross("0", pynini.union("o", "oh", "zero")).optimize()
+)
+
+str_to_digit = pynini.invert(digit_to_str)
+
+
+class BaseGraph:
+    def __init__(self, name: str, kind: str, deterministic: bool = True):
+        self.name = name
+        self.kind = str
+        self._fst = None
+
+        self.far_path = Path(os.path.dirname(__file__) + '/grammars/' + kind + '/' + name + '.far')
+        if self.far_exist():
+            self._fst = Far(self.far_path, mode="r", arc_type="standard", far_type="default").get_fst()
+
+
