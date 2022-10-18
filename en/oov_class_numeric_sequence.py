@@ -14,7 +14,6 @@ from pynini.lib import pynutil
 class NumericSequence:
     def __init__(self):
 
-
         double_digit = pynini.union(
             *[
                 pynini.cross(
