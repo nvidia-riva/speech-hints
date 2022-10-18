@@ -6,6 +6,7 @@ from en.primitives import NEMO_SPACE
 from en.passthrough import PassThrough
 
 import pynini
+from pynini.lib import pynutil
 
 
 nseq = NumericSequence()
@@ -33,7 +34,7 @@ def speech_hint_to_fst(speech_hint:str):
         for word in speech_hint_words.split(' '):
             speech_hint_fst += NEMO_SPACE + get_fst(word)
 
-    return speech_hint_fst
+    return pynutil.add_weight(speech_hint_fst,-0.001)|passthrough.sent_fst
 
 
 speech_hint_phrase="my phone number is $OOV_NUMERIC_SEQUENCE"
@@ -42,5 +43,14 @@ speech_hint_class="$OOV_NUMERIC_SEQUENCE"
 speech_hint_fst = speech_hint_to_fst(speech_hint_phrase)
 speech_hint_class_fst = speech_hint_to_fst(speech_hint_class)
 
-apply_fst("my phone number is five six seven eight",speech_hint_fst)
-apply_fst("i would like to call five six seven eight",speech_hint_class_fst)
+apply_fst("my phone number is five six seven eight", speech_hint_fst)
+# Output: my phone number is 5678
+
+apply_fst("i would like to call five six seven eight", speech_hint_fst)
+# Output: i would like to call five six seven eight
+
+apply_fst("my phone number is five six seven eight", speech_hint_class_fst)
+# Output: my phone number is 5678
+
+apply_fst("i would like to call five six seven eight", speech_hint_class_fst)
+# Output: i would like to call 5678
