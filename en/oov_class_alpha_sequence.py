@@ -1,16 +1,21 @@
 from en.primitives import (
     NEMO_ALNUM,
     NEMO_ALPHA,
+    NEMO_LOWER,
     NEMO_DIGIT,
+    NEMO_SPACE,
     delete_space,
     insert_space,
+NEMO_WHITE_SPACE
 )
 import pynini
 from pynini.lib import pynutil
+
+
 class AlphaSequence:
     def __init__(self):
-        character = NEMO_ALPHA
-
+        # character = NEMO_ALPHA
+        #
         double_char = pynini.union(
             *[
                 pynini.cross(
@@ -42,9 +47,13 @@ class AlphaSequence:
         triple_char_to_char = pynini.compose(
             triple_char, NEMO_ALPHA + delete_space + NEMO_ALPHA + delete_space + NEMO_ALPHA
         )
-        self.double_triple_graph = triple_char_to_char | double_char_to_char
-        self.alpha_graph = (self.double_triple_graph  | character)
-        sequence = (self.alpha_graph + pynini.closure(delete_space + self.alpha_graph,
-                                                         1)) | double_char_to_char | triple_char_to_char
+        self.double_triple_graph = (triple_char_to_char | double_char_to_char)
+        character = NEMO_ALPHA|self.double_triple_graph
+        word_fst = pynutil.add_weight(pynini.closure(NEMO_ALPHA), -10)
+        sequence = NEMO_WHITE_SPACE + character + (pynini.closure(pynutil.delete(" ") + character, 2)) + NEMO_WHITE_SPACE
+        sequence = pynutil.add_weight(sequence @ (NEMO_WHITE_SPACE + word_fst + NEMO_WHITE_SPACE), -10)
+
         self.fst = sequence
+
+        self.alpha_graph = (self.double_triple_graph | pynini.closure(pynutil.delete(" ") + character, 2))
 

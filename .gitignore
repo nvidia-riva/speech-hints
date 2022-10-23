@@ -1,6 +1,7 @@
 # log and data files
 *.model
 *.pkl
+*.swp
 #*.ipynb
 output
 result

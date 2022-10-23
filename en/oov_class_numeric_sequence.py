@@ -4,6 +4,7 @@ from en.primitives import (
     NEMO_DIGIT,
     delete_space,
     insert_space,
+delete_one_space,
     str_to_digit,
     digit_to_str
 )
@@ -13,7 +14,7 @@ from pynini.lib import pynutil
 
 class NumericSequence:
     def __init__(self):
-
+        delete_spaces = pynini.closure(pynutil.delete(" "))
         double_digit = pynini.union(
             *[
                 pynini.cross(
@@ -53,8 +54,8 @@ class NumericSequence:
             self.double_triple_graph| str_to_digit
         ).optimize()
 
-        sequence = ((self.numeric_graph + pynini.closure(delete_space + self.numeric_graph,
-                                                      1)) | double_digit_to_digit | triple_digit_to_digit).optimize()
+        sequence = ((self.numeric_graph + pynini.closure(delete_spaces + self.numeric_graph,
+                                                      2)) | double_digit_to_digit | triple_digit_to_digit).optimize()
 
         self.fst = pynini.compose(sequence,
                                   NEMO_DIGIT ** (2, ...)).optimize()
