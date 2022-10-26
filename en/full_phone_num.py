@@ -1,5 +1,5 @@
 import pynini
-from utils import get_abs_path, num_to_word
+from en.utils import get_abs_path
 from nemo_text_processing.text_normalization.en.graph_utils import GraphFst
 from nemo_text_processing.inverse_text_normalization.en.taggers.telephone import get_serial_number
 from nemo_text_processing.inverse_text_normalization.en.taggers.cardinal import CardinalFst
@@ -14,12 +14,10 @@ from en.primitives import (
 )
 from pynini.lib import pynutil
 
-class FullPhoneNumFst(GraphFst):
-
-    def __init__(self, cardinal):
+class FullPhoneNum(GraphFst):
+    def __init__(self):
         super().__init__(name="full_phone_num", kind="classify")
         # country code, number_part, extension
-        
         digit_to_str = (
             pynini.invert(pynini.string_file(get_abs_path("data/numbers/digit.tsv")).optimize())
             | pynini.cross("0", pynini.union("o", "oh", "zero")).optimize()
@@ -41,6 +39,7 @@ class FullPhoneNumFst(GraphFst):
         double_digit.invert()
 
         # to handle cases like "one twenty three"
+        cardinal = CardinalFst()
         two_digit_cardinal = pynini.compose(cardinal.graph_no_exception, NEMO_DIGIT ** 2)
         double_digit_to_digit = (
             pynini.compose(double_digit, str_to_digit + pynutil.delete(" ") + str_to_digit) | two_digit_cardinal
@@ -71,8 +70,6 @@ class FullPhoneNumFst(GraphFst):
 
         optional_country_code = pynini.closure(country_code + pynutil.delete(" ") + pynutil.insert("-"), 0, 1).optimize()
         graph = optional_country_code + area_part + number_part
-
-        graph |= pynutil.add_weight(get_serial_number(cardinal=cardinal), weight=0.0001)
 
         self.fst = graph.optimize()
 
