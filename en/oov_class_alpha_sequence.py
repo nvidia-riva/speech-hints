@@ -6,7 +6,7 @@ from en.primitives import (
     NEMO_SPACE,
     delete_space,
     insert_space,
-NEMO_WHITE_SPACE
+    NEMO_WHITE_SPACE
 )
 import pynini
 from pynini.lib import pynutil
@@ -48,12 +48,13 @@ class AlphaSequence:
             triple_char, NEMO_ALPHA + delete_space + NEMO_ALPHA + delete_space + NEMO_ALPHA
         )
         self.double_triple_graph = (triple_char_to_char | double_char_to_char)
-        character = NEMO_ALPHA|self.double_triple_graph
-        word_fst = pynutil.add_weight(pynini.closure(NEMO_ALPHA), -10)
-        sequence = NEMO_WHITE_SPACE + character + (pynini.closure(pynutil.delete(" ") + character, 2)) + NEMO_WHITE_SPACE
-        sequence = pynutil.add_weight(sequence @ (NEMO_WHITE_SPACE + word_fst + NEMO_WHITE_SPACE), -10)
+        character = NEMO_ALPHA | self.double_triple_graph
+        word_fst = pynutil.add_weight(pynini.closure(NEMO_ALPHA), -0.0001)
+        sequence = pynutil.add_weight(NEMO_WHITE_SPACE + character, 1) \
+                   + pynini.closure(pynutil.add_weight(pynutil.delete(" ") + character, -1.01), 1) \
+                   + pynutil.add_weight(NEMO_WHITE_SPACE, 0.25)
+        sequence = sequence @ (NEMO_WHITE_SPACE + word_fst + NEMO_WHITE_SPACE)
 
         self.fst = sequence
 
         self.alpha_graph = (self.double_triple_graph | pynini.closure(pynutil.delete(" ") + character, 2))
-

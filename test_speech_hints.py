@@ -63,7 +63,7 @@ apply_fst("i would like to call five six seven eight", speech_hint_class_fst)
 apply_fst((" b b d e d c "), speech_hint_to_fst("$OOV_ALPHA_SEQUENCE"))
 apply_fst(" double b b d e d c ", speech_hint_to_fst("$OOV_ALPHA_SEQUENCE"))
 
-apply_fst(" i work at double b b d e c radio international", speech_hint_to_fst("$OOV_ALPHA_SEQUENCE"))
+apply_fst(" i work at double b b d e c radio ", speech_hint_to_fst("$OOV_ALPHA_SEQUENCE"))
 apply_fst(" i work at double b b c radio d ", speech_hint_to_fst("$OOV_ALPHA_SEQUENCE"))
 apply_fst(" i work at b b c radio", speech_hint_to_fst("i work at $OOV_ALPHA_SEQUENCE "))
 apply_fst(" i work at t t k j j j low d ", speech_hint_to_fst("$OOV_ALPHA_SEQUENCE"))
