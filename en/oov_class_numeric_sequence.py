@@ -2,6 +2,7 @@ from en.primitives import (
     NEMO_ALNUM,
     NEMO_ALPHA,
     NEMO_DIGIT,
+NEMO_WHITE_SPACE,
     delete_space,
     insert_space,
 delete_one_space,
@@ -54,8 +55,8 @@ class NumericSequence:
             self.double_triple_graph| str_to_digit
         ).optimize()
 
-        sequence = ((self.numeric_graph + pynini.closure(delete_spaces + self.numeric_graph,
+        sequence = ((self.numeric_graph + pynini.closure(pynutil.add_weight(delete_spaces + self.numeric_graph,-0.001) ,
                                                       2)) | double_digit_to_digit | triple_digit_to_digit).optimize()
 
-        self.fst = pynini.compose(sequence,
-                                  NEMO_DIGIT ** (2, ...)).optimize()
+        self.fst = pynini.compose(NEMO_WHITE_SPACE+sequence+NEMO_WHITE_SPACE,
+                                  NEMO_WHITE_SPACE+NEMO_DIGIT ** (2, ...)+NEMO_WHITE_SPACE).optimize()
