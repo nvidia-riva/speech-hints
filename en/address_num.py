@@ -1,5 +1,6 @@
 import pynini
 from pynini.lib import pynutil
+from nemo_text_processing.text_normalization.en.taggers.cardinal import CardinalFst
 from nemo_text_processing.text_normalization.en.taggers.fraction import FractionFst as TFractionFst
 from nemo_text_processing.text_normalization.en.verbalizers.fraction import FractionFst as VFractionFst
 
@@ -8,12 +9,15 @@ from en.primitives import (
     NEMO_DIGIT, 
     NEMO_SIGMA,
     NEMO_SPACE,
-    delete_space    
+    delete_space
 )
 from en.utils import get_abs_path
 
 class AddressNum:
-    def __init__(self, v_fraction: VFractionFst, t_fraction: TFractionFst):
+    def __init__(self):
+        cardinal = CardinalFst()
+        v_fraction = VFractionFst()
+        t_fraction = TFractionFst(cardinal)
         
         # Handle cardinal
         graph_zero = pynini.string_file(get_abs_path("data/numbers/zero.tsv"))
@@ -23,8 +27,7 @@ class AddressNum:
 
         # Handle "a hundrend"
         graph_digit_and_a = (
-            pynini.invert(graph_digit)
-            | pynini.cross("1", pynini.union("a", "one")).optimize()
+            pynini.invert(graph_digit) | pynutil.add_weight(pynini.cross("1", "a"), weight=10)
         )
         graph_digit = pynini.invert(graph_digit_and_a)
 
@@ -46,7 +49,7 @@ class AddressNum:
 
         graph_thousands = pynini.union(
             graph_hundred_component_at_least_one_none_zero_digit + delete_space + pynutil.delete("thousand"),
-            pynutil.insert("000", weight=0.1),
+            pynutil.insert("000", weight=0.01),
         )
 
         graph = pynini.union(
@@ -72,8 +75,8 @@ class AddressNum:
         fraction_graph.invert()
 
         final_graph = (
-            pynutil.add_weight(digit_graph, weight=0.0001)
-            | pynutil.add_weight(fraction_graph, 1)
+            pynutil.add_weight(digit_graph, weight=-0.1)
+            | pynutil.add_weight(fraction_graph, weight=0.0001)
         )
 
         self.fst = final_graph.optimize()

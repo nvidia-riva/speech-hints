@@ -1,5 +1,5 @@
 import pynini
-from utils import get_abs_path, num_to_word
+from en.utils import get_abs_path
 from en.oov_class_alpha_numeric_sequence import AlphaNumericSequence
 from nemo_text_processing.text_normalization.en.graph_utils import GraphFst
 from nemo_text_processing.inverse_text_normalization.en.taggers.telephone import get_serial_number
@@ -8,9 +8,8 @@ from en.primitives import NEMO_DIGIT
 from pynini.lib import pynutil
 
 
-class PostalCodeFst(GraphFst):
-
-    def __init__(self, cardinal: CardinalFst):
+class PostalCode(GraphFst):
+    def __init__(self):
         super().__init__(name="postal_code", kind="classify")
         # country code, number_part, extension
         digit_to_str = (
@@ -34,6 +33,7 @@ class PostalCodeFst(GraphFst):
         double_digit.invert()
 
         # to handle cases like "one twenty three"
+        cardinal = CardinalFst()
         two_digit_cardinal = pynini.compose(cardinal.graph_no_exception, NEMO_DIGIT ** 2)
         double_digit_to_digit = (
             pynini.compose(double_digit, str_to_digit + pynutil.delete(" ") + str_to_digit) | two_digit_cardinal
@@ -58,8 +58,7 @@ class PostalCodeFst(GraphFst):
         ).optimize()
 
         final_graph = (
-            pynutil.add_weight(five_graph, weight=1) 
-            | pynutil.add_weight(nine_graph, weight=1) 
-            | pynutil.add_weight(get_serial_number(cardinal=cardinal), weight=0.0001)
+            pynutil.add_weight(five_graph, weight=0.0001) 
+            | pynutil.add_weight(nine_graph, weight=0.0001) 
         )
         self.fst = final_graph.optimize()

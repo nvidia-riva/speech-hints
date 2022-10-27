@@ -1,6 +1,9 @@
 from en.oov_class_numeric_sequence import NumericSequence
 from en.oov_class_alpha_sequence import AlphaSequence
 from en.oov_class_alpha_numeric_sequence import AlphaNumericSequence
+from en.address_num import AddressNum
+from en.full_phone_num import FullPhoneNum
+from en.postal_code import PostalCode
 from en.utils import apply_fst
 from en.primitives import NEMO_SPACE, NEMO_WHITE_SPACE
 from en.passthrough import PassThrough
@@ -14,6 +17,9 @@ aseq = AlphaSequence()
 anseq = AlphaNumericSequence(aseq,nseq)
 passthrough = PassThrough()
 
+anum = AddressNum()
+fpnum = FullPhoneNum()
+pcode = PostalCode()
 
 #ns_replace
 
@@ -21,6 +27,9 @@ fst_dict = {
     '$OOV_NUMERIC_SEQUENCE': nseq.fst.optimize(),
     '$OOV_ALPHA_SEQUENCE': aseq.fst.optimize(),
     '$OOV_ALPHA_NUMERIC_SEQUENCE': anseq.fst.optimize(),
+    '$ADDRESSNUM': anum.fst.optimize(),
+    '$FULLPHONENUM': fpnum.fst.optimize(),
+    '$POSTALCODE': pcode.fst.optimize(), 
     'passthrough': passthrough.phrase_fst.optimize(),
     'space': NEMO_WHITE_SPACE.optimize()
 

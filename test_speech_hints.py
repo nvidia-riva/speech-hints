@@ -1,6 +1,9 @@
 from en.oov_class_numeric_sequence import NumericSequence
 from en.oov_class_alpha_sequence import AlphaSequence
 from en.oov_class_alpha_numeric_sequence import AlphaNumericSequence
+from en.address_num import AddressNum
+from en.full_phone_num import FullPhoneNum
+from en.postal_code import PostalCode
 from en.utils import apply_fst
 from en.primitives import NEMO_SPACE
 from en.passthrough import PassThrough
@@ -14,12 +17,19 @@ aseq = AlphaSequence()
 anseq = AlphaNumericSequence(aseq,nseq)
 passthrough = PassThrough()
 
+anum = AddressNum()
+fpnum = FullPhoneNum()
+pcode = PostalCode()
+
 #ns_replace
 
 fst_dict={
     '$OOV_NUMERIC_SEQUENCE': nseq.fst,
     '$OOV_ALPHA_SEQUENCE': aseq.fst,
     '$OOV_ALPHA_NUMERIC_SEQUENCE': anseq.fst,
+    '$ADDRESSNUM': anum.fst,
+    '$FULLPHONENUM': fpnum.fst,
+    '$POSTALCODE': pcode.fst, 
 }
 
 def get_fst(word:str):
@@ -68,3 +78,16 @@ apply_fst(" i work at double b b c radio d ", speech_hint_to_fst("$OOV_ALPHA_SEQ
 apply_fst(" i work at b b c radio", speech_hint_to_fst("i work at $OOV_ALPHA_SEQUENCE "))
 apply_fst(" i work at t t k j j j low d ", speech_hint_to_fst("$OOV_ALPHA_SEQUENCE"))
 apply_fst(" i work at b b c nine ", speech_hint_to_fst("$OOV_ALPHA_NUMERIC_SEQUENCE"))
+
+apply_fst(" my postal code is one zero zero one zero ", speech_hint_to_fst("$POSTALCODE"))
+apply_fst(" my postal code is six double oh one oh ", speech_hint_to_fst("$POSTALCODE"))
+
+apply_fst(" my phone number is one eight hundred five five five four oh oh one ", speech_hint_to_fst("$FULLPHONENUM"))
+apply_fst(" i would like to call plus one eight hundred five five five four oh oh one ", speech_hint_to_fst("$FULLPHONENUM"))
+apply_fst(" please call seven one eight five five five six one oh one ", speech_hint_to_fst("$FULLPHONENUM"))
+
+apply_fst(" i work at one peachtree street northeast ", speech_hint_to_fst("$ADDRESSNUM"))
+apply_fst(" i work at one hundred ninety one peachtree street northeast ", speech_hint_to_fst("$ADDRESSNUM"))
+apply_fst(" i work at a hundred ninety one peachtree street northeast ", speech_hint_to_fst("$ADDRESSNUM"))
+apply_fst(" i work at ten and a half peachtree street northeast ", speech_hint_to_fst("$ADDRESSNUM"))
+apply_fst(" i work at twenty four thousand seven hundred and seven vantage point terrace malibu ", speech_hint_to_fst("$ADDRESSNUM"))
