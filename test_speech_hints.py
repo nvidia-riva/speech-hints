@@ -4,6 +4,8 @@ from en.oov_class_alpha_numeric_sequence import AlphaNumericSequence
 from en.address_num import AddressNum
 from en.full_phone_num import FullPhoneNum
 from en.postal_code import PostalCode
+from en.ordinal import Ordinal
+from en.month import Month
 from en.utils import apply_fst
 from en.primitives import NEMO_SPACE
 from en.passthrough import PassThrough
@@ -20,6 +22,8 @@ passthrough = PassThrough()
 anum = AddressNum()
 fpnum = FullPhoneNum()
 pcode = PostalCode()
+ordinal = Ordinal()
+month = Month()
 
 #ns_replace
 
@@ -30,6 +34,8 @@ fst_dict={
     '$ADDRESSNUM': anum.fst,
     '$FULLPHONENUM': fpnum.fst,
     '$POSTALCODE': pcode.fst, 
+    '$OOV_CLASS_ORDINAL': ordinal.fst,
+    '$MONTH': month.fst,
 }
 
 def get_fst(word:str):
@@ -91,3 +97,11 @@ apply_fst(" i work at one hundred ninety one peachtree street northeast ", speec
 apply_fst(" i work at a hundred ninety one peachtree street northeast ", speech_hint_to_fst("$ADDRESSNUM"))
 apply_fst(" i work at ten and a half peachtree street northeast ", speech_hint_to_fst("$ADDRESSNUM"))
 apply_fst(" i work at twenty four thousand seven hundred and seven vantage point terrace malibu ", speech_hint_to_fst("$ADDRESSNUM"))
+
+apply_fst(" it is my third time doing this ", speech_hint_to_fst("$OOV_CLASS_ORDINAL"))
+apply_fst(" today is their fifty first anniversary ", speech_hint_to_fst("$OOV_CLASS_ORDINAL"))
+apply_fst(" they won the four thousand six hundred and twenty seventh place ", speech_hint_to_fst("$OOV_CLASS_ORDINAL"))
+
+apply_fst(" they will get back to you by july ", speech_hint_to_fst("$MONTH"))
+apply_fst(" it is january already ", speech_hint_to_fst("$MONTH"))
+apply_fst(" the next semester will start in april  ", speech_hint_to_fst("$MONTH"))
