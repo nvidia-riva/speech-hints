@@ -4,6 +4,8 @@ from en.oov_class_alpha_numeric_sequence import AlphaNumericSequence
 from en.address_num import AddressNum
 from en.full_phone_num import FullPhoneNum
 from en.postal_code import PostalCode
+from en.ordinal import Ordinal
+from en.month import Month
 from en.utils import apply_fst
 from en.primitives import NEMO_SPACE, NEMO_WHITE_SPACE
 from en.passthrough import PassThrough
@@ -20,6 +22,8 @@ passthrough = PassThrough()
 anum = AddressNum()
 fpnum = FullPhoneNum()
 pcode = PostalCode()
+ordinal = Ordinal()
+month = Month()
 
 #ns_replace
 
@@ -30,6 +34,8 @@ fst_dict = {
     '$ADDRESSNUM': anum.fst.optimize(),
     '$FULLPHONENUM': fpnum.fst.optimize(),
     '$POSTALCODE': pcode.fst.optimize(), 
+    '$OOV_CLASS_ORDINAL': ordinal.fst.optimize(),
+    '$MONTH': month.fst.optimize(),
     'passthrough': passthrough.phrase_fst.optimize(),
     'space': NEMO_WHITE_SPACE.optimize()
 
