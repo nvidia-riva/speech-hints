@@ -57,4 +57,6 @@ def apply_fst(text, fst):
     except pynini.FstOpError:
         print(f"Error: No valid output with given input: '{text}'")
 
+    return pynini.shortestpath(text @ fst).string()
+
 

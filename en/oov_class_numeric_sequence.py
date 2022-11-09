@@ -51,9 +51,9 @@ class NumericSequence:
         )
         self.double_triple_graph = triple_digit_to_digit | double_digit_to_digit
 
-        self.numeric_graph = (
+        self.numeric_graph = pynutil.add_weight((
             self.double_triple_graph| str_to_digit
-        ).optimize()
+        ).optimize(),-0.05)
 
         sequence = ((self.numeric_graph + pynini.closure(pynutil.add_weight(delete_spaces + self.numeric_graph,-0.001) ,
                                                       2)) | double_digit_to_digit | triple_digit_to_digit).optimize()

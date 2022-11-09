@@ -1,0 +1,14 @@
+my postal code is six double oh one oh~my postal code is 60010~$POSTALCODE
+my postal code is one zero zero one zero~my postal code is 10010~$POSTALCODE
+my phone number is one eight hundred five five five four oh oh one~my phone number is 1-800-555-4001~$FULLPHONENUM
+i would like to call plus one eight hundred five five five four oh oh one~i would like to call +1-800-555-4001~$FULLPHONENUM
+please call seven one eight five five five six one oh one~please call 718-555-6101~$FULLPHONENUM
+i work at one peachtree street northeast~i work at 1 peachtree street northeast~$ADDRESSNUM
+i work at one hundred ninety one peachtree street northeast~i work at 191 peachtree street northeast~$OOV_CLASS_CARDINAL
+i work at one ninety one peachtree street northeast~i work at 191 peachtree street northeast~$OOV_CLASS_CARDINAL
+i work at a hundred ninety one peachtree street northeast~i work at 191 peachtree street northeast~$ADDRESSNUM
+i work at ten and a half peachtree street northeast~i work at 10 1/2 peachtree street northeast~$ADDRESSNUM
+i work at twenty four thousand seven hundred and seven vantage point terrace malibu~i work at 24707 vantage point terrace malibu~$ADDRESSNUM
+it is my third time doing this~it is my 3rd time doing this~$OOV_CLASS_ORDINAL
+today is their fifty first anniversary~today is their 51st anniversary~$OOV_CLASS_ORDINAL
+they won the four thousand six hundred and twenty seventh place~they won the 4627th place~$OOV_CLASS_ORDINAL

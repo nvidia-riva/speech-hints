@@ -36,7 +36,7 @@ class AddressNum:
         graph_hundred_component = pynini.union(graph_digit + delete_space + graph_hundred, pynutil.insert("0"))
         graph_hundred_component += delete_space
         graph_hundred_component += pynini.union(
-            graph_teen | pynutil.insert("00"),
+            pynutil.add_weight(graph_teen,-0.05) | pynutil.insert("00"),
             (graph_ties | pynutil.insert("0")) + delete_space + (graph_digit | pynutil.insert("0")),
         )
 
@@ -58,11 +58,12 @@ class AddressNum:
             + graph_hundred_component,
             graph_zero,
         )
+        self.graph2 = graph
 
         graph = graph @ pynini.union(
             pynutil.delete(pynini.closure("0")) + pynini.difference(NEMO_DIGIT, "0") + pynini.closure(NEMO_DIGIT), "0"
         )
-        
+
         graph = (
             pynini.cdrewrite(pynutil.delete("and"), NEMO_SPACE, NEMO_SPACE, NEMO_SIGMA)
             @ (NEMO_ALPHA + NEMO_SIGMA)

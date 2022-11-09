@@ -1,0 +1,9 @@
+i work at b b c radio~i work at bbc radio~$OOV_ALPHA_SEQUENCE
+i work at double b b c radio d~i work at bbbc radio d~$OOV_ALPHA_SEQUENCE
+my phone number is c c c good~my phone number is ccc good~$OOV_ALPHA_SEQUENCE
+b b d e d c~bbdedc~$OOV_ALPHA_SEQUENCE
+double b b d e d c~bbbdedc~$OOV_ALPHA_SEQUENCE
+i work at double b b d e c radio~i work at bbbdec radio~$OOV_ALPHA_SEQUENCE
+i work at double b b c radio d~i work at bbbc radio d~$OOV_ALPHA_SEQUENCE
+i work at t t k j j j low d~i work at ttkjjj low d~$OOV_ALPHA_SEQUENCE
+i work at b b c nine~i work at bbc nine~$OOV_ALPHA_SEQUENCE

@@ -31,7 +31,6 @@ fst_dict = {
     '$OOV_NUMERIC_SEQUENCE': nseq.fst.optimize(),
     '$OOV_ALPHA_SEQUENCE': aseq.fst.optimize(),
     '$OOV_ALPHA_NUMERIC_SEQUENCE': anseq.fst.optimize(),
-    '$ADDRESSNUM': anum.fst.optimize(),
     '$FULLPHONENUM': fpnum.fst.optimize(),
     '$POSTALCODE': pcode.fst.optimize(), 
     '$OOV_CLASS_ORDINAL': ordinal.fst.optimize(),
