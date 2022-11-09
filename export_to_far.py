@@ -35,8 +35,8 @@ fst_dict = {
     '$POSTALCODE': pcode.fst.optimize(), 
     '$OOV_CLASS_ORDINAL': ordinal.fst.optimize(),
     '$MONTH': month.fst.optimize(),
-    'passthrough': passthrough.phrase_fst.optimize(),
-    'space': NEMO_WHITE_SPACE.optimize()
+    '$__PASSTHROUGH__': passthrough.phrase_fst.optimize(),
+    '$__SPACE__': NEMO_WHITE_SPACE.optimize()
 
 }
 
