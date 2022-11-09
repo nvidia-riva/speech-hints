@@ -41,8 +41,8 @@ fst_dict = {
 }
 
 fst_weights={
-        'passthrough': 0,
-    'space': 1
+        '$__PASSTHROUGH__': 0,
+    '$__SPACE__': 1
 
         }
 
