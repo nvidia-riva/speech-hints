@@ -31,6 +31,7 @@ fst_dict = {
     '$OOV_NUMERIC_SEQUENCE': nseq.fst.optimize(),
     '$OOV_ALPHA_SEQUENCE': aseq.fst.optimize(),
     '$OOV_ALPHA_NUMERIC_SEQUENCE': anseq.fst.optimize(),
+    '$ADDRESSNUM': anum.fst,
     '$FULLPHONENUM': fpnum.fst.optimize(),
     '$POSTALCODE': pcode.fst.optimize(), 
     '$OOV_CLASS_ORDINAL': ordinal.fst.optimize(),
@@ -55,7 +56,7 @@ def export_grammars(grm_dict:dict, lang="en", path_prefix=''):
     os.makedirs(fpath, exist_ok=True)
     fst_export=export.Exporter(fname)
     for speech_class in grm_dict:
-        weight= fst_weights.get(speech_class,-10)
+        weight= fst_weights.get(speech_class,-0.5)
         fst_export[speech_class] = pynutil.add_weight(grm_dict[speech_class],weight).optimize()
     fst_export.close()
     print(f"Created {fname}")

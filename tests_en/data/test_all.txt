@@ -4,8 +4,8 @@ my phone number is one eight hundred five five five four oh oh one~my phone numb
 i would like to call plus one eight hundred five five five four oh oh one~i would like to call +1-800-555-4001~$FULLPHONENUM
 please call seven one eight five five five six one oh one~please call 718-555-6101~$FULLPHONENUM
 i work at one peachtree street northeast~i work at 1 peachtree street northeast~$ADDRESSNUM
-i work at one hundred ninety one peachtree street northeast~i work at 191 peachtree street northeast~$OOV_CLASS_CARDINAL
-i work at one ninety one peachtree street northeast~i work at 191 peachtree street northeast~$OOV_CLASS_CARDINAL
+i work at one hundred ninety one peachtree street northeast~i work at 191 peachtree street northeast~$ADDRESSNUM
+i work at one ninety one peachtree street northeast~i work at 191 peachtree street northeast~$ADDRESSNUM
 i work at a hundred ninety one peachtree street northeast~i work at 191 peachtree street northeast~$ADDRESSNUM
 i work at ten and a half peachtree street northeast~i work at 10 1/2 peachtree street northeast~$ADDRESSNUM
 i work at twenty four thousand seven hundred and seven vantage point terrace malibu~i work at 24707 vantage point terrace malibu~$ADDRESSNUM

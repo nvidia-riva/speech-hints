@@ -18,30 +18,26 @@ class AddressNum:
         cardinal = CardinalFst()
         v_fraction = VFractionFst()
         t_fraction = TFractionFst(cardinal)
-        
-        # Handle cardinal
+
         graph_zero = pynini.string_file(get_abs_path("data/numbers/zero.tsv"))
         graph_digit = pynini.string_file(get_abs_path("data/numbers/digit.tsv"))
         graph_ties = pynini.string_file(get_abs_path("data/numbers/ties.tsv"))
         graph_teen = pynini.string_file(get_abs_path("data/numbers/teen.tsv"))
 
-        # Handle "a hundrend"
-        graph_digit_and_a = (
-            pynini.invert(graph_digit) | pynutil.add_weight(pynini.cross("1", "a"), weight=10)
-        )
-        graph_digit = pynini.invert(graph_digit_and_a)
-
         graph_hundred = pynini.cross("hundred", "")
-
-        graph_hundred_component = pynini.union(graph_digit + delete_space + graph_hundred, pynutil.insert("0"))
+        graph_digit_a= graph_digit|pynini.cross("a", "1")
+        graph_sequence = ((graph_teen|(graph_ties+delete_space+graph_digit)|graph_ties|graph_digit) \
+                         + delete_space \
+                         + (graph_teen|(graph_ties+delete_space+graph_digit)|graph_ties))
+        graph_hundred_component = pynini.union(graph_digit_a + delete_space + graph_hundred, pynutil.insert("0"))
         graph_hundred_component += delete_space
         graph_hundred_component += pynini.union(
-            pynutil.add_weight(graph_teen,-0.05) | pynutil.insert("00"),
+            graph_teen | pynutil.insert("00"),
             (graph_ties | pynutil.insert("0")) + delete_space + (graph_digit | pynutil.insert("0")),
         )
 
         graph_hundred_component_at_least_one_none_zero_digit = graph_hundred_component @ (
-            pynini.closure(NEMO_DIGIT) + (NEMO_DIGIT - "0") + pynini.closure(NEMO_DIGIT)
+                pynini.closure(NEMO_DIGIT) + (NEMO_DIGIT - "0") + pynini.closure(NEMO_DIGIT)
         )
         self.graph_hundred_component_at_least_one_none_zero_digit = (
             graph_hundred_component_at_least_one_none_zero_digit
@@ -49,17 +45,37 @@ class AddressNum:
 
         graph_thousands = pynini.union(
             graph_hundred_component_at_least_one_none_zero_digit + delete_space + pynutil.delete("thousand"),
-            pynutil.insert("000", weight=0.01),
+            pynutil.insert("000", weight=0.1),
+        )
+
+        graph_million = pynini.union(
+            graph_hundred_component_at_least_one_none_zero_digit + delete_space + pynutil.delete("million"),
+            pynutil.insert("000", weight=0.1),
+        )
+        graph_billion = pynini.union(
+            graph_hundred_component_at_least_one_none_zero_digit + delete_space + pynutil.delete("billion"),
+            pynutil.insert("000", weight=0.1),
+        )
+        graph_trillion = pynini.union(
+            graph_hundred_component_at_least_one_none_zero_digit + delete_space + pynutil.delete("trillion"),
+            pynutil.insert("000", weight=0.1),
         )
 
         graph = pynini.union(
-            graph_thousands
+            graph_trillion
+            + delete_space
+            + graph_billion
+            + delete_space
+            + graph_million
+            + delete_space
+            + graph_thousands
             + delete_space
             + graph_hundred_component,
             graph_zero,
         )
-        self.graph2 = graph
 
+        #Trillion, billion and million need to be removed and the below needs to be appropriately modifies to only
+        #support thousand and below
         graph = graph @ pynini.union(
             pynutil.delete(pynini.closure("0")) + pynini.difference(NEMO_DIGIT, "0") + pynini.closure(NEMO_DIGIT), "0"
         )
@@ -78,6 +94,7 @@ class AddressNum:
         final_graph = (
             pynutil.add_weight(digit_graph, weight=-0.1)
             | pynutil.add_weight(fraction_graph, weight=0.0001)
+            | pynutil.add_weight(graph_sequence, weight=-0.1)
         )
 
         self.fst = final_graph.optimize()
