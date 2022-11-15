@@ -29,6 +29,10 @@ month = Month()
 
 #ns_replace
 
+fst_dict['$__PASSTHROUGH__'] = passthrough.phrase_fst.optimize()
+fst_dict['$__SPACE__'] = NEMO_WHITE_SPACE.optimize()
+
+
 
 fst_weights={
         '$__PASSTHROUGH__': 0,
