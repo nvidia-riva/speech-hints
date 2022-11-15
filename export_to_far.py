@@ -10,6 +10,8 @@ from en.utils import apply_fst
 from en.primitives import NEMO_SPACE, NEMO_WHITE_SPACE
 from en.passthrough import PassThrough
 
+from speech_hint import fst_dict
+
 import pynini
 from pynini.lib import pynutil
 from pynini.export import export
@@ -27,19 +29,6 @@ month = Month()
 
 #ns_replace
 
-fst_dict = {
-    '$OOV_NUMERIC_SEQUENCE': nseq.fst.optimize(),
-    '$OOV_ALPHA_SEQUENCE': aseq.fst.optimize(),
-    '$OOV_ALPHA_NUMERIC_SEQUENCE': anseq.fst.optimize(),
-    '$ADDRESSNUM': anum.fst,
-    '$FULLPHONENUM': fpnum.fst.optimize(),
-    '$POSTALCODE': pcode.fst.optimize(), 
-    '$OOV_CLASS_ORDINAL': ordinal.fst.optimize(),
-    '$MONTH': month.fst.optimize(),
-    '$__PASSTHROUGH__': passthrough.phrase_fst.optimize(),
-    '$__SPACE__': NEMO_WHITE_SPACE.optimize()
-
-}
 
 fst_weights={
         '$__PASSTHROUGH__': 0,

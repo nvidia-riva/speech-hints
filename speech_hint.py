@@ -43,7 +43,7 @@ fst_dict={
 }
 
 def get_fst(word:str):
-    return  pynutil.add_weight(fst_dict.get(word,pynini.accep(word)),0.25)
+    return  fst_dict.get(word,pynini.accep(word))
 
 
 def speech_hint_to_fst(speech_hint:str):

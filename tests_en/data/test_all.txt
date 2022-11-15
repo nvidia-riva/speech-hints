@@ -12,3 +12,6 @@ i work at twenty four thousand seven hundred and seven vantage point terrace mal
 it is my third time doing this~it is my 3rd time doing this~$OOV_CLASS_ORDINAL
 today is their fifty first anniversary~today is their 51st anniversary~$OOV_CLASS_ORDINAL
 they won the four thousand six hundred and twenty seventh place~they won the 4627th place~$OOV_CLASS_ORDINAL
+they won four thousand six hundred and twenty seven point six seven dollars~they won 4627.67 dollars~$OOV_CLASS_NUMERIC
+they won seven point six seven dollars~they won 7.67 dollars~$OOV_CLASS_NUMERIC
+shares gained seven point six seven percent~shares gained 7.67%~$PERCENT

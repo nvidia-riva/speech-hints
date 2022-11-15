@@ -44,7 +44,7 @@ class PassThrough:
 
 
     def passthrough_fst(self, fst):
-        return  pynini.closure(self.phrase_fst | pynutil.add_weight(fst, -0.5))
+        return  pynini.closure(self.phrase_fst | pynutil.add_weight(fst, -0.0001))
 
 
 
