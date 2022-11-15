@@ -40,10 +40,11 @@ class PassThrough:
         #self.phrase_fst |= NEMO_ALPHA  + NEMO_SPACE + pynini.closure(pynini.closure(NEMO_ALPHA)**(2,...) + NEMO_SPACE)
         self.phrase_fst = pynini.closure(self.w1, 1) | pynini.closure(self.w2, 1) | pynini.closure(self.w3, 1)
         self.phrase_fst |= pynini.closure(NEMO_WHITE_SPACE)
+        self.phrase_fst |= self.longest_path
 
 
     def passthrough_fst(self, fst):
-        return  pynini.closure(self.phrase_fst| self.longest_path | pynutil.add_weight(fst, -0.5))
+        return  pynini.closure(self.phrase_fst | pynutil.add_weight(fst, -0.5))
 
 
 

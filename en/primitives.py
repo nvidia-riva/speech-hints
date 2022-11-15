@@ -79,7 +79,7 @@ digit_to_str = (
 )
 
 str_to_digit = pynini.invert(digit_to_str)
-
+zero_to_digit = pynini.cross(pynini.union("o", "oh", "zero"),"0").optimize()
 
 class BaseGraph:
     def __init__(self, name: str, kind: str, deterministic: bool = True):

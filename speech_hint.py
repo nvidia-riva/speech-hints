@@ -7,6 +7,8 @@ from en.postal_code import PostalCode
 from en.ordinal import Ordinal
 from en.cardinal import Cardinal
 from en.month import Month
+from en.decimal import Decimal
+from en.percent import Percent
 from en.primitives import NEMO_SPACE
 from en.passthrough import PassThrough
 
@@ -19,7 +21,6 @@ aseq = AlphaSequence()
 anseq = AlphaNumericSequence(aseq,nseq)
 passthrough = PassThrough()
 
-anum = AddressNum()
 fpnum = FullPhoneNum()
 pcode = PostalCode()
 ordinal = Ordinal()
@@ -28,14 +29,16 @@ month = Month()
 #ns_replace
 
 fst_dict={
-    '$OOV_NUMERIC_SEQUENCE': nseq.fst,
+    '$OOV_NUMERIC_SEQUENCE': NumericSequence().fst,
     '$OOV_ALPHA_SEQUENCE': aseq.fst,
     '$OOV_ALPHA_NUMERIC_SEQUENCE': anseq.fst,
-    '$ADDRESSNUM': anum.fst,
+    '$ADDRESSNUM': AddressNum().fst,
     '$FULLPHONENUM': fpnum.fst,
     '$POSTALCODE': pcode.fst,
     '$OOV_CLASS_ORDINAL': ordinal.fst,
     '$OOV_CLASS_CARDINAL': Cardinal().fst,
+    '$OOV_CLASS_NUMERIC': Decimal().fst,
+    '$PERCENT': Percent().fst,
     '$MONTH': month.fst,
 }
 
