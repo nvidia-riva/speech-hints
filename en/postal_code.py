@@ -50,6 +50,11 @@ class PostalCode(GraphFst):
             single_or_double_digit,
             NEMO_DIGIT ** 5
         ).optimize()
+        # 6 digits
+        six_graph = pynini.compose(
+            single_or_double_digit,
+            NEMO_DIGIT ** 6
+        ).optimize()
 
         # 5+4 digits
         nine_graph = pynini.compose(
@@ -59,6 +64,7 @@ class PostalCode(GraphFst):
 
         final_graph = (
             pynutil.add_weight(five_graph, weight=0.0001) 
-            | pynutil.add_weight(nine_graph, weight=0.0001) 
+            | pynutil.add_weight(nine_graph, weight=0.0001)
+            | pynutil.add_weight(six_graph, weight=0.0001)
         )
         self.fst = final_graph.optimize()

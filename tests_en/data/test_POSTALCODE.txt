@@ -1,0 +1,5 @@
+my zip code is six double oh one oh~my zip code is 60010~$POSTALCODE
+my postal code is one zero zero one zero~my postal code is 10010~$POSTALCODE
+my postal code is six double oh one oh double two nine zero~my postal code is 60010-2290~$POSTALCODE
+my pin code is six double oh one oh five~my pin code is 600105~$POSTALCODE
+my postal code is nine nine nine zero one two three four two a~my postal code is 99901-2342 a~$POSTALCODE
