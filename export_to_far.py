@@ -49,7 +49,7 @@ def export_grammars(grm_dict:dict, lang="en", path_prefix=''):
     os.makedirs(fpath, exist_ok=True)
     fst_export=export.Exporter(fname)
     for speech_class in grm_dict:
-        weight= fst_weights.get(speech_class,-0.5)
+        weight= fst_weights.get(speech_class,-0.0001)
         fst_export[speech_class] = pynutil.add_weight(grm_dict[speech_class],weight).optimize()
     fst_export.close()
     print(f"Created {fname}")

@@ -1,5 +1,3 @@
-my postal code is six double oh one oh~my postal code is 60010~$POSTALCODE
-my postal code is one zero zero one zero~my postal code is 10010~$POSTALCODE
 my phone number is one eight hundred five five five four oh oh one~my phone number is 1-800-555-4001~$FULLPHONENUM
 i would like to call plus one eight hundred five five five four oh oh one~i would like to call +1-800-555-4001~$FULLPHONENUM
 please call seven one eight five five five six one oh one~please call 718-555-6101~$FULLPHONENUM

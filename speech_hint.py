@@ -36,9 +36,8 @@ fst_dict={
     '$FULLPHONENUM': fpnum.fst,
     '$POSTALCODE': pcode.fst,
     '$OOV_CLASS_ORDINAL': ordinal.fst,
-    '$OOV_CLASS_CARDINAL': Cardinal().fst,
-    '$OOV_CLASS_NUMERIC': Decimal().fst,
-    '$PERCENT': Percent().fst,
+#    '$OOV_CLASS_NUMERIC': Decimal().fst,
+#    '$PERCENT': Percent().fst,
     '$MONTH': month.fst,
 }
 
