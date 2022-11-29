@@ -13,3 +13,6 @@ they won the four thousand six hundred and twenty seventh place~they won the 462
 they won four thousand six hundred and twenty seven point six seven dollars~they won 4627.67 dollars~$OOV_CLASS_NUMERIC
 they won seven point six seven dollars~they won 7.67 dollars~$OOV_CLASS_NUMERIC
 shares gained seven point six seven percent~shares gained 7.67%~$PERCENT
+my flight is on the fifth of july~my flight is on 5th of july~$DAY
+my flight is on july fifth~my flight is on july 5th~$DAY
+is the twenty third of december a holiday~is 23rd of december a holiday~$DAY
