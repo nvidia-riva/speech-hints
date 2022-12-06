@@ -16,3 +16,6 @@ shares gained seven point six seven percent~shares gained 7.67%~$PERCENT
 my flight is on the fifth of july~my flight is on 5th of july~$DAY
 my flight is on july fifth~my flight is on july 5th~$DAY
 is the twenty third of december a holiday~is 23rd of december a holiday~$DAY
+they won four thousand six hundred and twenty seven dollars and sixty seven cents~they won $4627.67~$MONEY
+taxes are seven cents~taxes are $0.07~$MONEY
+they won four thousand six hundred and twenty seven dollars and seven cents~they won $4627.07~$MONEY
