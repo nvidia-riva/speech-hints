@@ -5,14 +5,14 @@ from en.address_num import AddressNum
 from en.full_phone_num import FullPhoneNum
 from en.postal_code import PostalCode
 from en.ordinal import Ordinal
-from en.cardinal import Cardinal
 from en.month import Month
 from en.decimal import Decimal
 from en.percent import Percent
 from en.day import Day
 from en.primitives import NEMO_SPACE
 from en.passthrough import PassThrough
-
+from en.time import Time
+from en.money import Money
 import pynini
 from pynini.lib import pynutil
 
@@ -32,11 +32,13 @@ fst_dict={
     '$FULLPHONENUM': FullPhoneNum().fst,
     '$POSTALCODE': PostalCode().fst,
     '$OOV_CLASS_ORDINAL': Ordinal().fst,
-    '$OOV_CLASS_CARDINAL': Cardinal().fst,
-#    '$OOV_CLASS_NUMERIC': Decimal().fst,
-#    '$PERCENT': Percent().fst,
+    '$OOV_CLASS_NUMERIC': Decimal().fst,
+    '$PERCENT': Percent().fst,
+    #"$TIME": Time().fst,
+    "$MONEY": Money().fst,
     '$MONTH': Month().fst,
     '$DAY': Day().fst,
+
 }
 
 def get_fst(word:str):
