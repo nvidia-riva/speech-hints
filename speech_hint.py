@@ -11,7 +11,7 @@ from en.percent import Percent
 from en.day import Day
 from en.primitives import NEMO_SPACE
 from en.passthrough import PassThrough
-#from en.time import Time
+from en.time import Time
 from en.money import Money
 import pynini
 from pynini.lib import pynutil
@@ -34,8 +34,8 @@ fst_dict={
     '$OOV_CLASS_ORDINAL': Ordinal().fst,
     '$OOV_CLASS_NUMERIC': Decimal().fst,
     '$PERCENT': Percent().fst,
-    #"$TIME": Time().fst,
-    "$MONEY": Money().fst,
+    '$TIME': Time().fst,
+    '$MONEY': Money().fst,
     '$MONTH': Month().fst,
     '$DAY': Day().fst,
 

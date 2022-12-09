@@ -19,3 +19,8 @@ is the twenty third of december a holiday~is 23rd of december a holiday~$DAY
 they won four thousand six hundred and twenty seven dollars and sixty seven cents~they won $4627.67~$MONEY
 taxes are seven cents~taxes are $0.07~$MONEY
 they won four thousand six hundred and twenty seven dollars and seven cents~they won $4627.07~$MONEY
+it is six thirty p m right now~it is 6:30p.m. right now~$TIME
+it is seven o clock in the morning~it is 7:00 in the morning~$TIME
+i will reach by quarter to nine~i will reach by 8:45~$TIME
+we will meet at around half past twelve~we will meet at around 12:30~$TIME
+the flight departs at fifteen hundred hours~the flight departs at 15:00~$TIME
