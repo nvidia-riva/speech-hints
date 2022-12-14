@@ -19,7 +19,7 @@ from pynini.lib import pynutil
 
 nseq = NumericSequence()
 aseq = AlphaSequence()
-anseq = AlphaNumericSequence(aseq,nseq)
+anseq = AlphaNumericSequence(aseq,NumericSequence(o_is_zero=False))
 passthrough = PassThrough()
 
 #ns_replace

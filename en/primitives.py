@@ -72,10 +72,15 @@ TO_UPPER = pynini.invert(TO_LOWER)
 MIN_NEG_WEIGHT = -0.0001
 MIN_POS_WEIGHT = 0.0001
 
+digit_to_str_simple = (
+        pynini.invert(pynini.string_file(get_abs_path("data/numbers/digit.tsv")).optimize())
+        | pynini.cross("0", "zero").optimize()
+
+)
 
 digit_to_str = (
-        pynini.invert(pynini.string_file(get_abs_path("data/numbers/digit.tsv")).optimize())
-        | pynini.cross("0", pynini.union("o", "oh", "zero")).optimize()
+       digit_to_str_simple|pynini.cross("0",pynini.union("o", "oh")).optimize()
+
 )
 
 str_to_digit = pynini.invert(digit_to_str)

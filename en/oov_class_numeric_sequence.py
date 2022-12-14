@@ -6,23 +6,29 @@ NEMO_WHITE_SPACE,
     delete_space,
     insert_space,
 delete_one_space,
-    str_to_digit,
-    digit_to_str
+    digit_to_str,
+    digit_to_str_simple
 )
 import pynini
 from pynini.lib import pynutil
 
 
 class NumericSequence:
-    def __init__(self):
+    def __init__(self, o_is_zero:bool=True):
         delete_spaces = pynini.closure(pynutil.delete(" "))
+        if o_is_zero:
+            digit_to_str_ns=digit_to_str
+        else:
+            digit_to_str_ns=digit_to_str_simple
+
+        str_to_digit = digit_to_str_ns.invert()
         double_digit = pynini.union(
             *[
                 pynini.cross(
-                    pynini.project(str(i) @ digit_to_str, "output")
+                    pynini.project(str(i) @ digit_to_str_ns, "output")
                     + pynini.accep(" ")
-                    + pynini.project(str(i) @ digit_to_str, "output"),
-                    pynutil.insert("double ") + pynini.project(str(i) @ digit_to_str, "output"),
+                    + pynini.project(str(i) @ digit_to_str_ns, "output"),
+                    pynutil.insert("double ") + pynini.project(str(i) @ digit_to_str_ns, "output"),
                 )
                 for i in range(10)
             ]
@@ -32,12 +38,12 @@ class NumericSequence:
         triple_digit = pynini.union(
             *[
                 pynini.cross(
-                    pynini.project(str(i) @ digit_to_str, "output")
+                    pynini.project(str(i) @ digit_to_str_ns, "output")
                     + pynini.accep(" ")
-                    + pynini.project(str(i) @ digit_to_str, "output")
+                    + pynini.project(str(i) @ digit_to_str_ns, "output")
                     + pynini.accep(" ")
-                    + pynini.project(str(i) @ digit_to_str, "output"),
-                    pynutil.insert("triple ") + pynini.project(str(i) @ digit_to_str, "output"),
+                    + pynini.project(str(i) @ digit_to_str_ns, "output"),
+                    pynutil.insert("triple ") + pynini.project(str(i) @ digit_to_str_ns, "output"),
                 )
                 for i in range(10)
             ]
