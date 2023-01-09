@@ -21,7 +21,7 @@ class NumericSequence:
         else:
             digit_to_str_ns=digit_to_str_simple
 
-        str_to_digit = digit_to_str_ns.invert()
+        str_to_digit = pynini.invert(digit_to_str_ns)
         double_digit = pynini.union(
             *[
                 pynini.cross(
