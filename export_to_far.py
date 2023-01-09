@@ -59,7 +59,7 @@ def export_grammars(grm_dict:dict, export_acceptors:bool, lang="en", path_prefix
         weight= fst_weights.get(speech_class,-0.0001)
         fst = pynutil.add_weight(grm_dict[speech_class], weight)
         if export_acceptors:
-           fst = fst @ fst.invert() 
+           fst = fst @ pynini.invert(fst)
         fst_export[speech_class] = fst.optimize()
     fst_export.close()
     print(f"Created {fname}")
