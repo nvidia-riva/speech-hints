@@ -14,6 +14,8 @@ class Time:
 
         suffix_graph = pynini.string_file(get_abs_path("data/time/time_suffix.tsv"))
         to_hour_graph = pynini.string_file(get_abs_path("data/time/to_hour.tsv"))
+
+        # Need to split labels_hour into single/double to support "o eight hundred hours"
         labels_hour = [num_to_word(x) for x in range(0, 24)]
         labels_minute_single = [num_to_word(x) for x in range(1, 10)]
         labels_minute_double = [num_to_word(x) for x in range(10, 60)]
@@ -35,9 +37,9 @@ class Time:
         graph_to = pynutil.delete("quarter to")+delete_space+to_hour_graph+pynutil.insert(":45")
 
 
-        graph_time = pynutil.add_weight(graph_hhmm,-0.0001)
-        graph_time |= pynutil.add_weight(graph_hhmm + delete_space + suffix_graph,-0.0001)
-        graph_time |= graph_to|graph_past
+        graph_time = pynutil.add_weight(graph_hhmm|graph_to|graph_past,-0.0001)
+        graph_time |= pynutil.add_weight((graph_hhmm|graph_to|graph_past) + delete_space + suffix_graph,-0.0002)
+
         self.fst = graph_time.optimize()
 
 
