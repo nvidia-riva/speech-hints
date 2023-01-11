@@ -17,7 +17,6 @@ import pynini
 from pynini.lib import pynutil
 
 
-nseq = NumericSequence()
 aseq = AlphaSequence()
 anseq = AlphaNumericSequence(aseq,NumericSequence(o_is_zero=False))
 passthrough = PassThrough()

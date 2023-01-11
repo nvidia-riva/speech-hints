@@ -23,18 +23,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--export_acceptors', action='store_true',
                     help='export acceptors instead of transducers')
 
-nseq = NumericSequence()
-aseq = AlphaSequence()
-anseq = AlphaNumericSequence(aseq,nseq)
 passthrough = PassThrough()
-
-anum = AddressNum()
-fpnum = FullPhoneNum()
-pcode = PostalCode()
-ordinal = Ordinal()
-month = Month()
-
-#ns_replace
 
 fst_dict['$__PASSTHROUGH__'] = passthrough.phrase_fst.optimize()
 fst_dict['$__SPACE__'] = NEMO_WHITE_SPACE.optimize()
