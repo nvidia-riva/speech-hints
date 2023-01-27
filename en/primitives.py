@@ -49,42 +49,70 @@ insert_space = pynutil.insert(" ")
 delete_extra_space = pynini.cross(pynini.closure(NEMO_WHITE_SPACE, 1), " ")
 delete_preserve_order = pynini.closure(
     pynutil.delete(" preserve_order: true")
-    | (pynutil.delete(" field_order: \"") + NEMO_NOT_QUOTE + pynutil.delete("\""))
+    | (pynutil.delete(' field_order: "') + NEMO_NOT_QUOTE + pynutil.delete('"'))
 )
 
 suppletive = pynini.string_file(get_abs_path("data/suppletive.tsv"))
 # _v = pynini.union("a", "e", "i", "o", "u")
 _c = pynini.union(
-    "b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z"
+    "b",
+    "c",
+    "d",
+    "f",
+    "g",
+    "h",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "v",
+    "w",
+    "x",
+    "y",
+    "z",
 )
 _ies = NEMO_SIGMA + _c + pynini.cross("y", "ies")
 _es = NEMO_SIGMA + pynini.union("s", "sh", "ch", "x", "z") + pynutil.insert("es")
 _s = NEMO_SIGMA + pynutil.insert("s")
 
 graph_plural = plurals._priority_union(
-    suppletive, plurals._priority_union(_ies, plurals._priority_union(_es, _s, NEMO_SIGMA), NEMO_SIGMA), NEMO_SIGMA
+    suppletive,
+    plurals._priority_union(
+        _ies, plurals._priority_union(_es, _s, NEMO_SIGMA), NEMO_SIGMA
+    ),
+    NEMO_SIGMA,
 ).optimize()
 
 SINGULAR_TO_PLURAL = graph_plural
 PLURAL_TO_SINGULAR = pynini.invert(graph_plural)
-TO_LOWER = pynini.union(*[pynini.cross(x, y) for x, y in zip(string.ascii_uppercase, string.ascii_lowercase)])
+TO_LOWER = pynini.union(
+    *[
+        pynini.cross(x, y)
+        for x, y in zip(string.ascii_uppercase, string.ascii_lowercase)
+    ]
+)
 TO_UPPER = pynini.invert(TO_LOWER)
 MIN_NEG_WEIGHT = -0.0001
 MIN_POS_WEIGHT = 0.0001
 
 digit_to_str_simple = (
-        pynini.invert(pynini.string_file(get_abs_path("data/numbers/digit.tsv")).optimize())
-        | pynini.cross("0", "zero").optimize()
-
+    pynini.invert(pynini.string_file(get_abs_path("data/numbers/digit.tsv")).optimize())
+    | pynini.cross("0", "zero").optimize()
 )
 
 digit_to_str = (
-       digit_to_str_simple|pynini.cross("0",pynini.union("o", "oh")).optimize()
-
+    digit_to_str_simple | pynini.cross("0", pynini.union("o", "oh")).optimize()
 )
 
 str_to_digit = pynini.invert(digit_to_str)
-zero_to_digit = pynini.cross(pynini.union("o", "oh", "zero"),"0").optimize()
+zero_to_digit = pynini.cross(pynini.union("o", "oh", "zero"), "0").optimize()
+
 
 class BaseGraph:
     def __init__(self, name: str, kind: str, deterministic: bool = True):
@@ -92,8 +120,10 @@ class BaseGraph:
         self.kind = str
         self._fst = None
 
-        self.far_path = Path(os.path.dirname(__file__) + '/grammars/' + kind + '/' + name + '.far')
+        self.far_path = Path(
+            os.path.dirname(__file__) + "/grammars/" + kind + "/" + name + ".far"
+        )
         if self.far_exist():
-            self._fst = Far(self.far_path, mode="r", arc_type="standard", far_type="default").get_fst()
-
-
+            self._fst = Far(
+                self.far_path, mode="r", arc_type="standard", far_type="default"
+            ).get_fst()

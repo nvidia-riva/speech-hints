@@ -44,7 +44,8 @@ def get_abs_path(rel_path):
         
     Returns absolute path
     """
-    return os.path.dirname(os.path.abspath(__file__)) + '/' + rel_path
+    return os.path.dirname(os.path.abspath(__file__)) + "/" + rel_path
+
 
 def apply_fst(text, fst):
     """ Given a string input, returns the output string
@@ -58,5 +59,3 @@ def apply_fst(text, fst):
         print(f"Error: No valid output with given input: '{text}'")
 
     return pynini.shortestpath(text @ fst).string()
-
-

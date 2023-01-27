@@ -1,6 +1,6 @@
 import pytest
 from parameterized import parameterized
-from tests_en.test_utils import parse_test_case_file
+from tests.en.test_utils import parse_test_case_file
 from speech_hint import apply_hint
 
 try:
@@ -10,7 +10,9 @@ except (ImportError, ModuleNotFoundError):
 
 
 class TestOovAplhaSeq:
-    @parameterized.expand(parse_test_case_file('data/test_cases_OOV_ALPHA_SEQUENCE.txt'))
+    @parameterized.expand(
+        parse_test_case_file("data/test_cases_OOV_NUMERIC_SEQUENCE.txt")
+    )
     @pytest.mark.skipif(
         not PYNINI_AVAILABLE,
         reason="`pynini` not installed, please install via nemo_text_processing/pynini_install.sh",

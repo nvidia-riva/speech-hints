@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#https://raw.githubusercontent.com/NVIDIA/NeMo/main/nemo_text_processing/inverse_text_normalization/en/taggers/money.py
+# https://raw.githubusercontent.com/NVIDIA/NeMo/main/nemo_text_processing/inverse_text_normalization/en/taggers/money.py
 
 import pynini
 from nemo_text_processing.inverse_text_normalization.en.utils import get_abs_path
@@ -33,7 +33,7 @@ from en.decimal import Decimal
 from pynini.lib import pynutil
 
 
-class Money():
+class Money:
     """
     Finite state transducer for classifying money
         e.g. twelve dollars and five cents -> money { integer_part: "12" fractional_part: 05 currency: "$" }
@@ -46,7 +46,9 @@ class Money():
     def __init__(self):
         # quantity, integer_part, fractional_part, currency
         digit_to_str = (
-            pynini.invert(pynini.string_file(get_abs_path("data/numbers/digit.tsv")).optimize())
+            pynini.invert(
+                pynini.string_file(get_abs_path("data/numbers/digit.tsv")).optimize()
+            )
             | pynini.cross("0", pynini.union("o", "oh", "zero")).optimize()
         )
 
@@ -54,16 +56,34 @@ class Money():
 
         decimal = Decimal().fst
 
-        #dollar standalone
-        graph_dollar_standalone = pynutil.insert("$") + decimal+delete_space+(pynutil.delete("dollars",-0.002)|pynutil.delete("dollar",-0.001))
-        #cents
-        graph_cent = pynutil.add_weight(pynutil.insert(".0") + str_to_digit +delete_space+(pynutil.delete("cents",-0.002)|pynutil.delete("cent",-0.001)),-0.005) \
-                    | (pynutil.insert(".") + decimal+delete_space+(pynutil.delete("cents",-0.002)|pynutil.delete("cent",-0.001)))
+        # dollar standalone
+        graph_dollar_standalone = (
+            pynutil.insert("$")
+            + decimal
+            + delete_space
+            + (pynutil.delete("dollars", -0.002) | pynutil.delete("dollar", -0.001))
+        )
+        # cents
+        graph_cent = pynutil.add_weight(
+            pynutil.insert(".0")
+            + str_to_digit
+            + delete_space
+            + (pynutil.delete("cents", -0.002) | pynutil.delete("cent", -0.001)),
+            -0.005,
+        ) | (
+            pynutil.insert(".")
+            + decimal
+            + delete_space
+            + (pynutil.delete("cents", -0.002) | pynutil.delete("cent", -0.001))
+        )
 
-        #cents standalone
-        graph_cent_standalone  = pynutil.add_weight(pynutil.insert("$0") + graph_cent,+0.005)
+        # cents standalone
+        graph_cent_standalone = pynutil.add_weight(
+            pynutil.insert("$0") + graph_cent, +0.005
+        )
 
-        graph_dollar_plus_cent = graph_dollar_standalone | pynutil.add_weight(graph_dollar_standalone|pynutil.delete(" and ")+graph_cent,-0.002)
+        graph_dollar_plus_cent = graph_dollar_standalone | pynutil.add_weight(
+            graph_dollar_standalone | pynutil.delete(" and ") + graph_cent, -0.002
+        )
 
-
-        self.fst = graph_dollar_plus_cent|graph_cent_standalone.optimize()
+        self.fst = graph_dollar_plus_cent | graph_cent_standalone.optimize()
