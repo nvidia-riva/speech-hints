@@ -1,15 +1,7 @@
 import argparse
 
-from en.oov_class_numeric_sequence import NumericSequence
-from en.oov_class_alpha_sequence import AlphaSequence
-from en.oov_class_alpha_numeric_sequence import AlphaNumericSequence
-from en.address_num import AddressNum
-from en.full_phone_num import FullPhoneNum
-from en.postal_code import PostalCode
-from en.ordinal import Ordinal
-from en.month import Month
-from en.utils import apply_fst
-from en.primitives import NEMO_SPACE, NEMO_WHITE_SPACE
+
+from en.primitives import NEMO_WHITE_SPACE
 from en.passthrough import PassThrough
 
 from speech_hint import fst_dict
